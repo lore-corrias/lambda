@@ -8,7 +8,7 @@ cosmic_packages=$(rpm -qa 'cosmic-*' 2>/dev/null || true)
 
 if [ -n "$cosmic_packages" ]; then
   echo "Removing COSMIC packages: $cosmic_packages"
-  dnf5 remove -y "$cosmic_packages"
+  dnf5 remove -y $cosmic_packages
 fi
 
 rm -rf /usr/share/cosmic
