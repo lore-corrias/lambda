@@ -5,10 +5,10 @@ set -ouex pipefail
 # Install packages
 
 ## Add COPR for Hyprland packages
-dnf5 -y copr enable lionheartp/Hyprland
+dnf5 -y copr enable lionheartp/Hyprland "fedora-${FEDORA_VERSION}-$(arch)"
 
 # Install rpmfusion repositories
-rpm-ostree install \
+dnf5 install -y \
 	"https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
 	"https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
 

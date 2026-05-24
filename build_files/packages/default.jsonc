@@ -12,9 +12,6 @@
   "thunar-volman",
   "thunar-archive-plugin",
   "xarchiver",
-  // Image viewer
-  // "imv",
-  // these need to be tested
   "gvfs-mtp",
   "gvfs-gphoto2",
   "gvfs-smb",
@@ -41,15 +38,11 @@
   "bluez-tools",
   // display management
   "brightnessctl",
-  // this might be useful?
-  // - kanshi ",
   // btrfs utilities
   "btrfs-assistant",
   "btrfsmaintenance",
   "snapper",
   "timeshift",
-  // notification daemon
-  "dunst",
   // various CLI tools
   "fd-find",
   "ripgrep",
@@ -60,9 +53,6 @@
   "ffmpeg",
   "ffmpegthumbnailer",
   "heif-pixbuf-loader",
-  // power management
-  // "tlp",
-  // "power-profiles-daemon",
   // firewall
   "ufw",
   // archives management
@@ -74,6 +64,7 @@
   "slurp",
   "swappy",
   // desktop environment
+  "uwsm",
   "noctalia-shell",
   "hyprland",
   "hyprlock",
@@ -91,8 +82,6 @@
   "dbus-tools",
   "dbus-daemon",
   "wl-clipboard",
-  // "qt5-qtwayland",
-  // "qt6-qtwayland ",
   "vulkan-validation-layers",
   "vulkan-tools",
   "ddcutil",
@@ -109,7 +98,6 @@
   "obs-studio",
   // vpns
   "tailscale",
-  "wireshark",
   // development
   "distrobox",
   "just",
@@ -120,6 +108,7 @@
   "alsa-firmware",
   "rpi-imager",
   "qdirstat",
+  "wireshark",
   // disc management
   "gparted",
   "mediawriter",

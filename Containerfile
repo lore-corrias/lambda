@@ -5,7 +5,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/ublue-os/bluefin-dx:${FEDORA_VERSION}
+FROM registry.gitlab.com/origami-linux/images/origami:latest
 
 ARG FEDORA_VERSION
 ENV FEDORA_VERSION=${FEDORA_VERSION}
@@ -18,9 +18,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
   --mount=type=cache,dst=/var/cache \
   --mount=type=cache,dst=/var/log \
   --mount=type=tmpfs,dst=/tmp \
-  /ctx/install-custom-packages.sh && \
-  /ctx/manage-rpms.sh && \
-  /ctx/enable-services.sh && \
+  for script in /ctx/??-*.sh; do bash "$script"; done && \
   ostree container commit
 
 ### LINTING
