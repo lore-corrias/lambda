@@ -11,4 +11,6 @@ if [ -n "$cosmic_packages" ]; then
   dnf5 remove -y $cosmic_packages
 fi
 
+dnf5 remove -y SwayNotificationCenter
+
 rm -rf /usr/share/cosmic
