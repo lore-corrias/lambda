@@ -24,6 +24,6 @@ systemctl enable mullvad-daemon
 ## Enable SDDM display manager
 systemctl enable sddm.service
 
-for service in install-dotfiles.service setup-flatpak.service flatpak-user-update.service flatpak-user-update.timer hyprpolkitagent.service xdg-desktop-portal-hyprland.service; do
+for service in install-dotfiles.service setup-flatpak.service flatpak-user-update.service flatpak-user-update.timer hyprpolkitagent.service xdg-desktop-portal-hyprland.service dms.service; do
   enable_user_service "$service"
 done

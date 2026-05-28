@@ -4,8 +4,13 @@ set -ouex pipefail
 
 # Install packages
 
-## Add COPR for Hyprland packages
+## Add COPRs
+
+# Hyprland 
 dnf5 -y copr enable lionheartp/Hyprland "fedora-${FEDORA_VERSION}-$(arch)"
+# Dank linux
+dnf5 -y copr enable avengemedia/danklinux "fedora-${FEDORA_VERSION}-$(arch)" 
+
 
 # Install rpmfusion repositories
 dnf5 install -y \
