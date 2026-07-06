@@ -1,4 +1,6 @@
 [
+  // kernel utils
+  "kernel-devel",
   // Network utilities
   "NetworkManager-tui",
   "network-manager-applet",
@@ -32,6 +34,8 @@
   "virt-manager",
   "wine-desktop",
   "podman-compose",
+  "VirtualBox",
+  "akmod-VirtualBox",
   // bluetooth
   "blueman",
   "bluez",
