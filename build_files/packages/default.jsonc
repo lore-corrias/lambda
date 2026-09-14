@@ -115,6 +115,7 @@
   // clipboard management
   "cliphist",
   // misc
+  "iloader",
   "openssl",
   "alsa-firmware",
   "rpi-imager",

@@ -1,7 +1,7 @@
 {
-  "name": "custom-bluefin-dc",
+  "name": "lambda-dc",
   "image": "quay.io/podman/stable:latest",
-  "service": "custom-bluefin-dc",
+  "service": "lambda-dc",
   "workspaceFolder": "/workspace",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -34,7 +34,7 @@
     "--userns=host",
     "-v",
     "/run/user/1000/podman/podman.sock:/var/run/podman.sock:Z",
-    "--hostname=ad-scripts-dc"
+    "--hostname=lambda-dc"
   ],
   "remoteUser": "root",
   "containerUser": "root"

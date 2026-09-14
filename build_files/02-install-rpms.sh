@@ -7,6 +7,9 @@ set -ouex pipefail
 ## Add COPR for Hyprland packages
 dnf5 -y copr enable lionheartp/Hyprland "fedora-${FEDORA_VERSION}-$(arch)"
 
+## Add COPR for iLoader
+dnf5 -y copr enable anudeepd/iloader "fedora-${FEDORA_VERSION}-$(arch)"
+
 # Install rpmfusion repositories
 dnf5 install -y \
 	"https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
