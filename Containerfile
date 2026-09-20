@@ -6,7 +6,7 @@ COPY build_files /
 
 # Build the unsupported 55a4 driver separately so compilers and source code do
 # not enter the final bootc image.
-FROM fedora:44 AS goodix-libfprint-builder
+FROM fedora:${FEDORA_VERSION} AS goodix-libfprint-builder
 
 ARG LIBFPRINT_REV="d1ca62a801aa565e67d1a2a47aaa7a33232b7990"
 
@@ -57,7 +57,7 @@ RUN dnf5 install -y --setopt=install_weak_deps=False git && \
     sed -i 's/print("provision_psk: run from the goodix-fp-dump directory",/print(f"provision_psk: could not import the bundled driver: {error}",/' /tmp/goodix-fp-dump/provision_psk.py
 
 # Base Image
-FROM registry.gitlab.com/origami-linux/images/origami:latest
+FROM ghcr.io/ublue-os/bluefin-dx:${FEDORA_VERSION}
 
 ARG FEDORA_VERSION
 ENV FEDORA_VERSION=${FEDORA_VERSION}
