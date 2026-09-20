@@ -1,0 +1,9 @@
+[Unit]
+Description=Provision the Goodix 27c6:55a4 Linux sensor key
+ConditionPathExists=/dev/bus/usb
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/systemctl stop fprintd.service
+ExecStart=/usr/bin/python3 /usr/libexec/goodix55a4/provision_psk.py
+ExecStopPost=/usr/bin/systemctl try-restart fprintd.service
