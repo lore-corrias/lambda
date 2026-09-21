@@ -68,6 +68,11 @@ jobs:
 
       # Image metadata for https://artifacthub.io/ - This is optional but is highly recommended so we all can get a index of all the custom images
       # The metadata by itself is not going to do anything, you choose if you want your image to be on ArtifactHub or not.
+      - name: Calculate image input digest
+        id: image_input
+        run: |
+          echo "digest=$(git ls-files -s -- Containerfile build_files system_files third_party | sha256sum | cut -d' ' -f1)" >> $GITHUB_OUTPUT
+
       - name: Image Metadata
         uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v5
         id: metadata
@@ -112,6 +117,8 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           oci: false
           layers: true
+          build-args: |
+            IMAGE_INPUT_DIGEST=${{ steps.image_input.outputs.digest }}
           extra-args: |
             --cache-from ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
             --cache-ttl 72h

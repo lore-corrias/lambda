@@ -41,7 +41,7 @@ RUN dnf5 install -y --setopt=install_weak_deps=False \
 # The permanent sensor-key write is deliberately deferred until a user starts
 # the provision service on the real hardware. This stage supplies only its
 # pinned USB protocol implementation.
-FROM fedora:44 AS goodix-provisioner
+FROM fedora:${FEDORA_VERSION} AS goodix-provisioner
 
 ARG GOODIX_DUMP_REV="cc43bb3b3154a0bccc0412ae024013c7e1923139"
 
@@ -60,6 +60,7 @@ RUN dnf5 install -y --setopt=install_weak_deps=False git && \
 FROM ghcr.io/ublue-os/bluefin-dx:${FEDORA_VERSION}
 
 ARG FEDORA_VERSION
+ARG IMAGE_INPUT_DIGEST
 ENV FEDORA_VERSION=${FEDORA_VERSION}
 
 # Mounting additional files, such as systemd services
@@ -72,7 +73,8 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
   --mount=type=cache,dst=/var/cache \
   --mount=type=cache,dst=/var/log \
   --mount=type=tmpfs,dst=/tmp \
-  for script in /ctx/??-*.sh; do bash "$script"; done && \
+  test -n "$IMAGE_INPUT_DIGEST" && \
+  for script in /ctx/??-*.sh; do bash "$script" || exit $?; done && \
   ln -sf libfprint-2.so.2.0.0 /usr/lib64/libfprint-goodix/libfprint-2.so.2 && \
   ln -sf libfprint-2.so.2 /usr/lib64/libfprint-goodix/libfprint-2.so && \
   ostree container commit

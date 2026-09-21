@@ -34,8 +34,6 @@
   "virt-manager",
   "wine-desktop",
   "podman-compose",
-  "VirtualBox",
-  "akmod-VirtualBox",
   // bluetooth
   "blueman",
   "bluez",
@@ -113,6 +111,7 @@
   // vpns
   "tailscale",
   // development
+  "chezmoi",
   "distrobox",
   "just",
   // clipboard management

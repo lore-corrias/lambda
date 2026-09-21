@@ -1,0 +1,2 @@
+# Keep this sensor active: resuming it from runtime suspend resets the device.
+ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="27c6", ATTR{idProduct}=="55a4", TEST=="power/control", ATTR{power/control}="on"

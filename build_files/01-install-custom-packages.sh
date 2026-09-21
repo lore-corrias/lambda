@@ -23,14 +23,18 @@ esac
 ## For now, this is required, as long as eza won't be available in fedora 42
 ## Maybe switch to a COPR in the future
 
-LATEST_VERSION=$(curl -s https://api.github.com/repos/eza-community/eza/releases/latest | jq -r .tag_name)
-RELEASE_URL="https://github.com/eza-community/eza/releases/download/${LATEST_VERSION}"
 TARBALL="eza_${EZA_ARCH}.tar.gz"
+RELEASE_METADATA=$(
+  curl --fail --silent --show-error --location \
+    https://api.github.com/repos/eza-community/eza/releases/latest
+)
+RELEASE_URL=$(jq -er --arg tarball "$TARBALL" \
+  '.assets[] | select(.name == $tarball) | .browser_download_url' <<<"$RELEASE_METADATA")
+EXPECTED_SHA256=$(jq -er --arg tarball "$TARBALL" \
+  '.assets[] | select(.name == $tarball) | .digest | sub("^sha256:"; "")' <<<"$RELEASE_METADATA")
 
-curl -sSL "${RELEASE_URL}/${TARBALL}" -o "/tmp/${TARBALL}"
-curl -sSL "${RELEASE_URL}/sha256sums.txt" -o /tmp/eza-sha256sums.txt
-
-(cd /tmp && sha256sum --check --ignore-missing eza-sha256sums.txt)
+curl --fail --silent --show-error --location "$RELEASE_URL" -o "/tmp/${TARBALL}"
+printf '%s  %s\n' "$EXPECTED_SHA256" "/tmp/${TARBALL}" | sha256sum --check -
 
 tar -xzf "/tmp/${TARBALL}" -C /tmp
 mv /tmp/eza /usr/bin/eza
@@ -40,12 +44,3 @@ eza --version
 
 # TODO: install this more elegantly
 wget https://raw.githubusercontent.com/hyprwm/contrib/43c012d21d9314c585b97ac4f34752f6de93dc8f/grimblast/grimblast -O /usr/bin/grimblast
-
-# Install chezmoi
-
-CHEZMOI_VERSION="v2.70.4"
-CHEZMOI_TARBALL="chezmoi_${CHEZMOI_VERSION#v}_${CHEZMOI_ARCH}.tar.gz"
-CHEZMOI_URL="https://github.com/twpayne/chezmoi/releases/download/${CHEZMOI_VERSION}/${CHEZMOI_TARBALL}"
-
-curl -sSL "${CHEZMOI_URL}" -o "/tmp/${CHEZMOI_TARBALL}"
-tar -xzf "/tmp/${CHEZMOI_TARBALL}" -C /usr/local/bin chezmoi

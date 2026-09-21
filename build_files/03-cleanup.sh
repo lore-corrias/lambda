@@ -13,4 +13,7 @@ fi
 
 dnf5 remove -y SwayNotificationCenter
 
+# Remove the Fedora GNOME desktop environment selected from comps metadata.
+dnf5 group remove -y gnome-desktop
+
 rm -rf /usr/share/cosmic

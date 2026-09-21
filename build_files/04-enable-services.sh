@@ -22,6 +22,9 @@ systemctl enable rpm-ostreed-automatic.timer
 systemctl enable mullvad-daemon
 
 ## Enable SDDM display manager
+if [ -e /usr/lib/systemd/system/gdm.service ]; then
+  systemctl disable gdm.service
+fi
 systemctl enable sddm.service
 
 for service in install-dotfiles.service setup-flatpak.service flatpak-user-update.service flatpak-user-update.timer hyprpolkitagent.service xdg-desktop-portal-hyprland.service; do

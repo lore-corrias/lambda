@@ -22,5 +22,12 @@ mkdir -p /var/opt/vagrant &&
   mkdir -p /var/opt/Mullvad\ VPN
 
 ## Install packages from the default list
-grep -v '^\s*\/\/' /ctx/packages/default.jsonc | jq -r '.[]' | xargs dnf5 install -y \
-  && dnf5 clean all
+grep -v '^\s*\/\/' /ctx/packages/default.jsonc | jq -r '.[]' | xargs dnf5 install -y
+
+# RPM Fusion's akmod scriptlet cannot build modules as root during image builds.
+# The installed akmods service builds the module on the booted host instead.
+if ! dnf5 install -y VirtualBox akmod-VirtualBox; then
+  rpm -q VirtualBox akmod-VirtualBox >/dev/null
+fi
+
+dnf5 clean all
