@@ -22,7 +22,8 @@ mkdir -p /var/opt/vagrant &&
   mkdir -p /var/opt/Mullvad\ VPN
 
 ## Install packages from the default list
-grep -v '^\s*\/\/' /ctx/packages/default.jsonc | jq -r '.[]' | xargs dnf5 install -y
+# The persistent DNF cache can otherwise hide newly published COPR packages.
+grep -v '^\s*\/\/' /ctx/packages/default.jsonc | jq -r '.[]' | xargs dnf5 --refresh install -y
 
 # RPM Fusion's akmod scriptlet cannot build modules as root during image builds.
 # The installed akmods service builds the module on the booted host instead.

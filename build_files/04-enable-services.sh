@@ -21,6 +21,9 @@ systemctl enable rpm-ostreed-automatic.timer
 ## Enable Mullvad service
 systemctl enable mullvad-daemon
 
+## Disable unreliable USB wake from suspend
+systemctl enable disable-xhci-wakeup.service
+
 ## Enable SDDM display manager
 if [ -e /usr/lib/systemd/system/gdm.service ]; then
   systemctl disable gdm.service

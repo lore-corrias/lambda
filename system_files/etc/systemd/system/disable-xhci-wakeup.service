@@ -1,0 +1,12 @@
+[Unit]
+Description=Disable XHCI wake from system suspend
+ConditionPathExists=/proc/acpi/wakeup
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'if grep -q "^XHCI.*enabled" /proc/acpi/wakeup; then printf XHCI > /proc/acpi/wakeup; fi'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
